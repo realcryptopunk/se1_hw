@@ -26,6 +26,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'Django-tutorial-env.eba-sp8svaxy.us-west-2.elasticbeanstalk.com',
     '127.0.0.1',
+    '172.31.16.73'
     'localhost',  # Add this if you want to test locally
 ]
 
