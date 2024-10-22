@@ -5,17 +5,20 @@ env:
   global:
   - DJANGO_SETTINGS_MODULE=mysite.settings
   - AWS_DEFAULT_REGION=us-west-2
-  - secure: OQ7VKfbFPrB03EM//YO+03FttFCFKJ2TFyGkXwXGth+GqB493W9FTW2wgU6sanGVsuaGxO9xwVof9nmKsqRXm21thGuKMRe2BZZK6qFgf0ux+oP0CwBSxZCMjSAaZYDStaMLU10lTbOcnxUPQHTNDgNFNTK9lHL/qhK/PIf+0rbOX45C5KP2aPBTLvW6TejYMkCoEuEOmci2K0KnKcW5eiuD3eeUeVmW1vKA36MNwdqR6xUix214j++fssf9G+7ShDxRAeAxyjweL+9e52w2IK94f3pISMtTUY36fi4xYu7dUld+1EoSoANMvIuj9Ps032hA8GCQY6PoJshB00YmYkyblls6DCro64D6moLFEonQ4zTyXZPxGOG7xCfdQ/mhzmeMtunz7olQFfIkZvMmEky1sklASZ6DYN3rurE5i/T+iCE7Sv8jygiQOBJGLBLfMaho4IHXvt6qBfVpKoqMXrVfBsJlh3X3ZHDPq4iGSz8Mq9dwQ1mKk3NSYpPatiyM3QOzb1GDKL8Vj3lRjN3kmOf/E78ZFBkIqluDUPOG1pSc1g9h7LxeDDsRG47w8TwO2qGunnSvm/241lwkPAoKczX4WOe+QEaI3WbItN//IsgzGcs1lEdU8nd9GJp17yEEv+McUMu/wCwTZoBSEUzGjZykspJ2gixQoyNH1ZVRyBE=
-  - secure: c8Zq6DiGtCQzbyMmnU2WbnkxhU2AahkflYVWopdGpxwQ65XFL4JZScTELHbHxKatTThAycLKElu2iSQ+NZ9tGttrDtuy3Tfhk9NpRYn2dgfBpnR7LBWOmd86YCyWA1KXnn+pRH3M0jTa/naSZ3L2aJx5uL8lBwK98iN+QYEe/0Xf6a1DhKDlXUUGAXjBBu1+pKGUKQB4fkrkKjpg98XdRjogkarnqU3H79Oun7tUHKWHRKFek87+rOkVahLqL3jyeQL8DtSKzifu/ekbMD0vvIQFSizlyUTPtCK0DVAc1NytbjDGbyH+KvkHbemcdlfSNeAZNV0jezkwRMG8MqxnAF5cu+LUw+71lfo+AeXDQDN3F/PHEcILhm/oMK3h8t5mU2E/roEvhQXHqdOAtXOP4sXUax/fIjNdXuzaApRXyXV6s2lQtb0hwCwFJTuYNRStk2uwnrKxQ1CBjhAypM8mTD/Ntc6/bkSVF1DY6/HEIbeL6t2laCRHIJkEB27FFehaR74YOP62XAHRqXQ5DwUPG/ILMraiwjK+XeuhAEr/hfaTMF8XfUqyyLqAcBD/wnK8BzViQohrM3fm764yeLg1olyFqt3t+KLARqpeagZlHChapQnSeF42y1RiMRgaAA4mYYHxVzGYs46s/Kf9sG399i897xY5d2UxTSY/Vhiu9Ao=
+  - secure: YOUR_ENCRYPTED_KEYS_HERE
+
 install:
 - pip install --upgrade pip
 - pip install -r requirements.txt
 - pip install awscli awsebcli pytest
+
 script:
 - python manage.py test polls
+
 before_deploy:
 - eb init django-tutorial -p python-3.9 --region $AWS_DEFAULT_REGION
-- eb use django-env
+- eb create django-env --database.engine django.db.backends.sqlite3 || eb use django-env
+
 deploy:
   provider: elasticbeanstalk
   access_key_id: "$AWS_ACCESS_KEY_ID"
