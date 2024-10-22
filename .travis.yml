@@ -13,9 +13,7 @@ install:
   - pip install awscli awsebcli pytest
 
 script:
-  - cd mysite
   - python manage.py test polls
-  - cd ..
 
 before_deploy:
   # Initialize EB CLI
