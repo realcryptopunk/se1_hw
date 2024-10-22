@@ -122,9 +122,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Add this after DEFAULT_AUTO_FIELD line
-
-# SQLite Configuration Fix
-import django.db.backends.sqlite3.base
-django.db.backends.sqlite3.base.DatabaseWrapper.random_function_sql = lambda *args: 'RANDOM()'
