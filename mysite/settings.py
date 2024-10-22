@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-new-generated-key-here')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'django-env4.eba-sp8svaxy.us-west-2.elasticbeanstalk.com',
+    'Django-tutorial-env.eba-sp8svaxy.us-west-2.elasticbeanstalk.com',
     '127.0.0.1',
     'localhost',  # Add this if you want to test locally
 ]
