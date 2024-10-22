@@ -78,9 +78,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'OPTIONS': {
+            'timeout': 20,  # Add timeout option
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -122,3 +124,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Add this after DEFAULT_AUTO_FIELD line
+
+# SQLite Configuration Fix
+import django.db.backends.sqlite3.base
+django.db.backends.sqlite3.base.DatabaseWrapper.random_function_sql = lambda *args: 'RANDOM()'
