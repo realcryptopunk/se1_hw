@@ -1,0 +1,34 @@
+language: python
+python:
+  - "3.9"
+
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE=mysite.settings
+    - AWS_DEFAULT_REGION=us-west-2
+
+install:
+  - pip install --upgrade pip
+  - pip install -r mysite/requirements.txt
+  - pip install awscli awsebcli pytest
+
+script:
+  - cd mysite
+  - python manage.py test polls
+  - cd ..
+
+before_deploy:
+  # Initialize EB CLI
+  - eb init django-tutorial -p python-3.9 --region $AWS_DEFAULT_REGION
+  - eb use django-env
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: $AWS_DEFAULT_REGION
+  app: "django-tutorial"
+  env: "django-env"
+  bucket_name: "elasticbeanstalk-us-west-2-158596392157"
+  on:
+    all_branches: true  
