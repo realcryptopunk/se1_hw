@@ -22,7 +22,7 @@ deploy:
   secret_access_key: "$AWS_SECRET_ACCESS_KEY"
   region: "$AWS_DEFAULT_REGION"
   app: django-tutorial
-  env: django-env
+  env: django-tutorial-env
   bucket_name: elasticbeanstalk-us-west-2-158596392157
   on:
     all_branches: true
