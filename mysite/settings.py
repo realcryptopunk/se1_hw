@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os  # Add this import at the top
 from django.db.backends.sqlite3.base import SQLiteCursorWrapper
@@ -24,7 +23,11 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-new-generated-key-here')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-env4.eba-sp8svaxy.us-west-2.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'django-env4.eba-sp8svaxy.us-west-2.elasticbeanstalk.com',
+    '127.0.0.1',
+    'localhost',  # Add this if you want to test locally
+]
 
 # Application definition
 INSTALLED_APPS = [
