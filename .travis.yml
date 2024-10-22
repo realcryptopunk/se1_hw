@@ -15,11 +15,6 @@ install:
 script:
 - python manage.py test polls
 
-before_deploy:
-- echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-- echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-- eb init django-tutorial -p python-3.9 --region $AWS_DEFAULT_REGION
-- eb create django-env || eb use django-env
 
 deploy:
   provider: elasticbeanstalk
