@@ -11,9 +11,12 @@ install:
 - pip install --upgrade pip
 - pip install -r requirements.txt
 - pip install awscli awsebcli pytest
+- pip install coveralls  # Add this line
 
 script:
-- python manage.py test polls
+- coverage run --source='.' manage.py test polls  # Use coverage to run tests
+- coverage report  # Optional: to see the coverage report in the console
+- coveralls  # Send coverage data to Coveralls
 
 repos:
 -   repo: https://github.com/psf/black
