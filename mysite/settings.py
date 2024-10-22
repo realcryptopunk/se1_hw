@@ -76,11 +76,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(BASE_DIR / 'db.sqlite3'),
         'OPTIONS': {
+            'deterministic': False,  # Add this line
             'timeout': 30,
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
