@@ -5,18 +5,22 @@ env:
   global:
   - DJANGO_SETTINGS_MODULE=mysite.settings
   - AWS_DEFAULT_REGION=us-west-2
-  - secure: OQ7VKfbFPrB03EM//YO+03FttFCFKJ2TFyGkXwXGth+GqB493W9FTW2wgU6sanGVsuaGxO9xwVof9nmKsqRXm21thGuKMRe2BZZK6qFgf0ux+oP0CwBSxZCMjSAaZYDStaMLU10lTbOcnxUPQHTNDgNFNTK9lHL/qhK/PIf+0rbOX45C5KP2aPBTLvW6TejYMkCoEuEOmci2K0KnKcW5eiuD3eeUeVmW1vKA36MNwdqR6xUix214j++fssf9G+7ShDxRAeAxyjweL+9e52w2IK94f3pISMtTUY36fi4xYu7dUld+1EoSoANMvIuj9Ps032hA8GCQY6PoJshB00YmYkyblls6DCro64D6moLFEonQ4zTyXZPxGOG7xCfdQ/mhzmeMtunz7olQFfIkZvMmEky1sklASZ6DYN3rurE5i/T+iCE7Sv8jygiQOBJGLBLfMaho4IHXvt6qBfVpKoqMXrVfBsJlh3X3ZHDPq4iGSz8Mq9dwQ1mKk3NSYpPatiyM3QOzb1GDKL8Vj3lRjN3kmOf/E78ZFBkIqluDUPOG1pSc1g9h7LxeDDsRG47w8TwO2qGunnSvm/241lwkPAoKczX4WOe+QEaI3WbItN//IsgzGcs1lEdU8nd9GJp17yEEv+McUMu/wCwTZoBSEUzGjZykspJ2gixQoyNH1ZVRyBE=
   - secure: ilSLqUSKttIZBixJkOrXtdpiZ//MMlagU9wS4AdmDIjjI0W2fX1QIxugiqkuFVSNSv2Q4Yjp7h5Y53A3IES0HF1xHJqD09gu7LAx/lnQdJr0PBzMi0iFloCj5ftXk8FMg47wb+teXDmnVMUznp12HNroMxtdlaWAE0clYGSaPJl6bP0gjfGmYGjEFqHnoBHAoMt5Ko+7Srw7uU32BZX3aFQAxIzr9YjC+x11d1ZQylQNqmFTEPFeASxqN1ebniRoCbS21joIxj8F559/EgN/WMTLFIMb/UATKeLf2s9XnHS24LrcNxnS3oLvuIzvqa8yFSDxg3g4FgQ1wCR8KlGocQJ6B6WncO4kDWUcrQiC07lG0pJ1qVK6UQbj1rOmCFUgNgRrKPFKWZh8RAdCPRRyJjpRLiVCu0WgL/XvSguPiv4f9rjfSEU3/fEDSrZJNc66WWkMIn1uHtaPsbF1qacbn4VjB1I09gJeG8LSIthNFWMBfn7dr9wHky7Z0x3qhPBHgU0ksy3LqdZn/QzTf6iDMrxlxi/YvW1UfBr+JggdNqnsvPAugWLGDoroEWK2VYj3OYpEb3sxGnTekV+Z91/fsgnT+LsTIAkCjYM4sL73DwptQpZaz5Z2KZWOLG5377u//hr21KpaxqVBPPvpL0MQjVJJZYTSZHBV7BwNYQAGz8w=
   - secure: i3GY93UDgA6mBCoimAGjuI9Mw+MRB6enlBycmtFSrtmy5g5TJ0/2G/7JCOoiD8p7waQKvT9qQj94uV638Dk7k8288zfe4cq2ga8K9jT5zPseKp0oZuSQklYrr1gfYEmTRQpUCBmoH+uAfhLXeTqURbyT6tZRvp/Toyie5e5IbxI+DIGYLPyGi2peOH/wkzW1MeSCsnuLiWaJ3MQXENeMg80DN/f3pVl7hlLgHUOFEk3njwBP8ACGMpzyqL2/VBM3UikU5J7i+xN+kMBSAO1nhAV999e4yaAwujaEmn0U/5WNqI+exN0YVtZ+GolAIO1QuO1MaYSpeWdK03ofFqsih9IL979j5yvTHDVK14Hd+ENL+IqboKjwKATWU8wTJqYTcUjelfXH+Da79yOS9ZyV02k0PIfJqTykGdjzIqDIpE5LGt+V98ryHNmcdPFKFlrL6mFUMz6HPMvltytp6fEryPiWi9AwZgT6orMbbBEhxRUk3P3WGsvRKf+6pr/e4RENamsQkcpu2R7JQIerfn/tBuCuzEEoOJqbC1JemfNGuEcU0iywpFATAoRWPKsOaBZCQAG3nKKU7Isirugomav3cuQt/hYfuDIsEysR1R1+XIrjD4mYvgGIkQizmoAPpOD5r05yUrChVYgBqYPz4t7QrWRVb4tx+QkaQ3pNmiSINuQ=
 install:
 - pip install --upgrade pip
 - pip install -r requirements.txt
 - pip install awscli awsebcli pytest
+
 script:
 - python manage.py test polls
+
 before_deploy:
+- echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
+- echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
 - eb init django-tutorial -p python-3.9 --region $AWS_DEFAULT_REGION
-- eb create django-env --database.engine django.db.backends.sqlite3 || eb use django-env
+- eb create django-env || eb use django-env
+
 deploy:
   provider: elasticbeanstalk
   access_key_id: "$AWS_ACCESS_KEY_ID"
