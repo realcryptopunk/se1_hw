@@ -11,8 +11,20 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import django.db.backends.sqlite3.base  # Add this
+from django.db.backends.sqlite3.base import SQLiteCursorWrapper  # Add this
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+# Override SQLite functions before any database operations
+def custom_execute(self, sql, params=None):
+    if params is None:
+        params = []
+    sql = sql.replace('RANDOM()', 'ABS(RANDOM())')  # modify random function
+    return self.execute_with_retry(self, sql, params)
+
+# Apply the override
+SQLiteCursorWrapper.execute = custom_execute  # Add this
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
