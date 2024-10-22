@@ -1,10 +1,7 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Choice, Question
-from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.db.models import F
+from .models import Choice, Question
 
 
 def index(request):
@@ -21,8 +18,6 @@ def index(request):
     return render(request, "polls/index.html", context)
 
 
-# Keep other views the same
-# Leave the rest of the views (detail, results, vote) unchanged
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {"question": question})
