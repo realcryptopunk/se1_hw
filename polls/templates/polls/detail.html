@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ question.question_text }}</title>
 </head>
 <body>
     <form action="{% url 'polls:vote' question.id %}" method="post">
@@ -18,5 +18,17 @@
         </fieldset>
         <input type="submit" value="Vote">
     </form>
+
+    <!-- Add this for debugging -->
+    {% if debug %}
+        <div style="margin-top: 20px; padding: 10px; background: #f0f0f0;">
+            <p>Available choices:</p>
+            <ul>
+            {% for choice in debug_choices %}
+                <li>{{ choice.choice_text }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 </body>
 </html>
