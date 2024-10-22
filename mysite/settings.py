@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p=owv8y(&-%z!5_$88kl7ezp+zh$r1w@a#wsfyg4q!9_=oscgh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-env10.eba-sp8svaxy.us-west-2.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = ['django-env13.eba-sp8svaxy.us-west-2.elasticbeanstalk.com', '127.0.0.1']
 
 
 # Application definition
@@ -78,11 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(BASE_DIR / 'db.sqlite3'),
-        'OPTIONS': {
-            'timeout': 20,  # Add timeout option
-        }
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
