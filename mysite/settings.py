@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-new-generated-key-here')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Django-tutorial-env.eba-sp8svaxy.us-west-2.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = ['django-env4.eba-sp8svaxy.us-west-2.elasticbeanstalk.com', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
