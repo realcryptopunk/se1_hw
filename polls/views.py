@@ -1,20 +1,27 @@
 from django.http import HttpResponse
-
-from .models import Question
-
-
-from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from .models import Choice, Question
-from django.http import Http404,HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import F
+
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
+    try:
+        # Get all questions and sort in Python instead of database
+        all_questions = list(Question.objects.all())
+        latest_question_list = sorted(
+            all_questions,
+            key=lambda x: x.pub_date,
+            reverse=True
+        )[:5]
+        context = {'latest_question_list': latest_question_list}
+    except Exception as e:
+        print(f"Database error: {e}")
+        context = {'latest_question_list': []}
     return render(request, 'polls/index.html', context)
 
-
+# Keep other views the same
 # Leave the rest of the views (detail, results, vote) unchanged
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
