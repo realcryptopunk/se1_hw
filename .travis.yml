@@ -13,10 +13,17 @@ install:
 - pip install awscli awsebcli pytest
 - pip install coveralls  # Add this line
 
+before_script:
+  - python manage.py migrate
+  - python manage.py collectstatic --noinput
+
 script:
-- coverage run --source='.' manage.py test polls  # Use coverage to run tests
-- coverage report  # Optional: to see the coverage report in the console
-- coveralls  # Send coverage data to Coveralls
+  - black --check .
+  - flake8 .
+  - coverage run --source=mysite_swe1_app,polls manage.py test
+
+after_script:
+  - coveralls
 
 repos:
 -   repo: https://github.com/psf/black
