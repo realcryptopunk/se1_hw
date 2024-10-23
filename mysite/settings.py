@@ -30,7 +30,9 @@ ALLOWED_HOSTS = [
     "Django-tutorial-env.eba-sp8svaxy.us-west-2.elasticbeanstalk.com",
     "127.0.0.1",
     "172.31.16.73",
+    "52.39.6.35",
     "localhost",  # Add this if you want to test locally
+    # Add any other domains or IPs you expect to serve
 ]
 
 INSTALLED_APPS = [
