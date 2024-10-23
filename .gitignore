@@ -12,6 +12,7 @@ dist/
 eggs/
 *.egg-info/
 .eggs/
+db.sqlite3
 
 # Django
 *.log
