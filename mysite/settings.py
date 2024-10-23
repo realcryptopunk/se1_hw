@@ -80,7 +80,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",  # Ensure this path is correct
+        'NAME': str(BASE_DIR / "db.sqlite3"),  # Convert PosixPath to string
     }
 }
 
